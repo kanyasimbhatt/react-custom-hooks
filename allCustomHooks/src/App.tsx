@@ -1,18 +1,16 @@
+import useUndoRedo from "./Hooks/useUndoRedo";
 
-import { Ref, useRef } from "react";
-import useDebounce from "./Hooks/useDebounce"
-function App() {
-  let store = useRef<HTMLInputElement | null>(null);
-  let [handleDebounce] = useDebounce(handleInput, 3000);
+export type Array<T> = [T, (value1: T) => void, () => void, () => void];
 
-  function handleInput(){
-      console.log(store.current!.value);
-  }
+export default function App() {
+  const [value, setData, undo, redo]: Array<number> = useUndoRedo<number>(10);
+
   return (
     <>
-    <input type="text" ref={store} onInput={handleDebounce}/>
+      <p>{value}</p>
+      <button onClick={() => setData(value + 1)}>update</button>
+      <button onClick={() => undo()}>Undo</button>
+      <button onClick={() => redo()}>Redo</button>
     </>
-  )
+  );
 }
-
-export default App
