@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+export type Array = [
+  boolean,
+  React.Dispatch<React.SetStateAction<boolean>>,
+  () => void
+];
+
 export default function useToggle(initialState: boolean) {
   const [value, setValue] = useState(initialState);
 
@@ -7,5 +13,7 @@ export default function useToggle(initialState: boolean) {
     setValue((value) => !value);
   }
 
-  return [value, setValue, toggle];
+  const arr: Array = [value, setValue, toggle];
+
+  return arr;
 }

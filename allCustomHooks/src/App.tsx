@@ -1,16 +1,13 @@
-import useUndoRedo from "./Hooks/useUndoRedo";
-
-export type Array<T> = [T, (value1: T) => void, () => void, () => void];
+import useToggle from "./Hooks/useToggle";
 
 export default function App() {
-  const [value, setData, undo, redo]: Array<number> = useUndoRedo<number>(10);
+  const [value, setValue, toggle] = useToggle(true);
 
   return (
     <>
-      <p>{value}</p>
-      <button onClick={() => setData(value + 1)}>update</button>
-      <button onClick={() => undo()}>Undo</button>
-      <button onClick={() => redo()}>Redo</button>
+      {value && <p>Hello I am there</p>}
+      <button onClick={() => setValue((toggle) => !toggle)}>change</button>
+      <button onClick={() => toggle()}>Toggle</button>
     </>
   );
 }
