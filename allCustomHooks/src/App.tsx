@@ -1,13 +1,12 @@
-import useToggle from "./Hooks/useToggle";
-
+import useResetState from "./Hooks/useResetState";
 export default function App() {
-  const [value, setValue, toggle] = useToggle(true);
+  const [value, setValue, reset] = useResetState(0);
 
   return (
     <>
-      {value && <p>Hello I am there</p>}
-      <button onClick={() => setValue((toggle) => !toggle)}>change</button>
-      <button onClick={() => toggle()}>Toggle</button>
+      {value}
+      <button onClick={() => setValue(value + 1)}>Increment</button>
+      <button onClick={() => reset()}>Reset</button>
     </>
   );
 }
