@@ -6,9 +6,6 @@ export default function useUndoRedo<T>(initialState: T) {
   const [dataArray, setDataArray] = useState([initialState]);
   const [index, setIndex] = useState(0);
 
-  console.log(index, " ", dataArray.length - 1);
-  console.log(dataArray);
-
   function setData(value1: T) {
     setValue(value1);
     if (index < dataArray.length - 1) {

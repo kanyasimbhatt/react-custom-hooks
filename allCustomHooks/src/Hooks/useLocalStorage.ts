@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function useLocalStorage<T>(key: string, initialValue: T) {
   const [value, putValue] = useState(initialValue);
@@ -11,6 +11,10 @@ function useLocalStorage<T>(key: string, initialValue: T) {
   const removeItem = () => {
     localStorage.removeItem(key);
   };
+
+  useEffect(() => {
+    setValue(value);
+  }, []);
 
   return [value, setValue, removeItem];
 }

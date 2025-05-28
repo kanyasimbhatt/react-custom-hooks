@@ -9,6 +9,7 @@ const useClipboard = () => {
   const [data, setData] = useState("");
 
   const copyData = (data: string) => {
+    setIsCopied(false);
     navigator.clipboard
       .writeText(data)
       .then(() => console.log("data copied successfully"))
