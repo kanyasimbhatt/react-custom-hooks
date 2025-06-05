@@ -13,18 +13,6 @@ import useRenderCount from "./Hooks/useRenderCount";
 // };
 
 // const App = () => {
-//   const ref = useEventListener<HTMLInputElement>("input", () =>
-//     console.log("changed")
-//   );
-//   return <input type="text" ref={ref} />;
-// };
-
-// const App = () => {
-//   const isMatched = useMediaQuery("(min-width: 768px)");
-//   return <div>{isMatched ? "True" : "False"}</div>;
-// };
-
-// const App = () => {
 //   const [count, setCount] = useState(0);
 //   return (
 //     <>
