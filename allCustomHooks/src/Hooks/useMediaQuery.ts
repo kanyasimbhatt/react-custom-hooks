@@ -5,10 +5,15 @@ export const useMediaQuery = (media: string) => {
 
   const [isMatched, setIsMatched] = useState<boolean>(matchedMedia.matches);
   useEffect(() => {
-    matchedMedia.addEventListener("change", () => {
+    const handleChange = () => {
       if (matchedMedia.matches) setIsMatched(true);
       else setIsMatched(false);
-    });
+    };
+    matchedMedia.addEventListener("change", handleChange);
+
+    return () => {
+      matchedMedia.removeEventListener("change", handleChange);
+    };
   }, []);
 
   return isMatched;

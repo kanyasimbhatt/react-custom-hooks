@@ -6,6 +6,7 @@ type ChildrenType = {
 
 const Child = (props: ChildrenType) => {
   useWhyDidYouUpdate<ChildrenType>("Child", props);
+
   return <div>{props.value}</div>;
 };
 

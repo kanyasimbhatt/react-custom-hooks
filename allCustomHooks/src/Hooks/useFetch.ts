@@ -1,31 +1,60 @@
 import { useEffect, useState } from "react";
 
-export default function useFetch(url: string) {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  async function getData() {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Something ins't right`);
-      }
+type httpMethods = "get" | "post" | "put" | "patch" | "delete";
 
-      const data = await response.json();
+type useFetchReturnType<T> = [boolean, T | null, boolean];
+
+type OptionType = {
+  method: httpMethods;
+  headers: Record<string, string>;
+  body?: string;
+};
+
+const useFetch = <T>(
+  url: string,
+  method: httpMethods = "get",
+  condition: boolean = true,
+  payload?: object
+): useFetchReturnType<T> => {
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(null);
+
+  async function operate() {
+    const options: OptionType = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (method !== "get" && method !== "delete") {
+      options.body = JSON.stringify(payload);
+    }
+    try {
+      setIsLoading(true);
+      const result = await fetch(url, options);
+      if (!result.ok) {
+        throw new Error("issue with request");
+      }
+      const data = await result.json();
       setData(data);
-      setIsLoading(false);
     } catch (err) {
-      console.log(err);
       setIsError(true);
-      setData(null);
+      console.log(err);
     } finally {
       setIsLoading(false);
     }
   }
-
   useEffect(() => {
-    getData();
-  }, [url]);
+    if (condition) {
+      operate();
+    } else {
+      setIsError(true);
+    }
+  }, []);
 
-  return [data, isLoading, isError];
-}
+  return [isLoading, data, isError];
+};
+
+export default useFetch;
