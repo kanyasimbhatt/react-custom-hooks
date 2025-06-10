@@ -1,5 +1,4 @@
-import { useState } from "react";
-import useRenderCount from "./Hooks/useRenderCount";
+import useLongPressToAccelarate from "./Hooks/useLongPressToAccelarate";
 // const App = () => {
 //   const [count, setCount] = useState<number>(0);
 //   const previousValue: number | null = usePreviousValue<number>(count);
@@ -37,16 +36,30 @@ import useRenderCount from "./Hooks/useRenderCount";
 //   );
 // };
 
+// const App = () => {
+//   const renderCount = useRenderCount();
+//   const [count, setCount] = useState(0);
+//   console.log("sdfd");
+//   return (
+//     <div>
+//       <p>{renderCount}</p>
+//       <p>{count}</p>
+//       <button onClick={() => setCount(count + 1)}>Increment</button>
+//     </div>
+//   );
+// };
+
 const App = () => {
-  const renderCount = useRenderCount();
-  const [count, setCount] = useState(0);
-  console.log("sdfd");
+  const normalFunction = () => {
+    console.log("hello1");
+  };
+  const ref = useLongPressToAccelarate(normalFunction);
   return (
-    <div>
-      <p>{renderCount}</p>
-      <p>{count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </div>
+    <>
+      <button ref={ref} type="button">
+        Click me
+      </button>
+    </>
   );
 };
 
