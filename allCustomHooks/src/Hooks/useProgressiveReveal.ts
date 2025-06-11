@@ -1,5 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
+// Reveal content in chunks progressively (e.g., for lazy FAQs or story cards).
+// 🔧 Description:
+// • Accepts an array of items and a delay interval.
+// • Reveals n items every x milliseconds until all are shown.
+// • Returns the currently visible items and a method to trigger reveal (like a useEffect or button).
+// const { visibleItems, start } = useProgressiveReveal(items, {
+//     step: 3,
+//     interval: 500,
+//    });
+
 type PropsType = {
   step: number;
   delay: number;

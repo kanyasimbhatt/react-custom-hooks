@@ -1,4 +1,5 @@
-import useLongPressToAccelarate from "./Hooks/useLongPressToAccelarate";
+import useReactiveIdle from "./Hooks/useReactiveIdle";
+
 // const App = () => {
 //   const [count, setCount] = useState<number>(0);
 //   const previousValue: number | null = usePreviousValue<number>(count);
@@ -49,18 +50,88 @@ import useLongPressToAccelarate from "./Hooks/useLongPressToAccelarate";
 //   );
 // };
 
+// const App = () => {
+//   const normalFunction = () => {
+//     console.log("hello1");
+//   };
+//   const ref = useLongPressToAccelarate<HTMLButtonElement>(normalFunction);
+//   return (
+//     <>
+//       <button ref={ref} type="button">
+//         Click me
+//       </button>
+//     </>
+//   );
+// };
+
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   useSkipEffect(
+//     (stop) => {
+//       console.log("hello world");
+//       if (count === 5) stop();
+//       console.log("no hello world");
+//     },
+//     [count]
+//   );
+//   return (
+//     <div>
+//       {count}
+//       <button type="button" onClick={() => setCount(count + 1)}>
+//         Increment
+//       </button>
+//     </div>
+//   );
+// };
+
+// const App = () => {
+//   const isIdle = useIdle(5000);
+//   return <div>{isIdle ? "You are Idle." : "You are not Idle"}</div>;
+// };
+
+// const App = () => {
+//   return (
+//     <div>
+//       <Parent />
+//     </div>
+//   );
+// };
+
+// const items = [
+//   "kanya",
+//   "pranshu",
+//   "nikhil",
+//   "mohit",
+//   "inshiya",
+//   "raja",
+//   "dhruv",
+//   "krushna",
+//   "sakshi",
+//   "maitri",
+// ];
+// const App = () => {
+//   const [iteratedItems, triggerFunc] = useProgressiveReveal(items, {
+//     step: 3,
+//     delay: 1000,
+//   });
+//   return (
+//     <ul>
+//       <button onClick={() => triggerFunc()}>Trigger</button>
+//       {iteratedItems.map((item, index) => (
+//         <li key={index}>item: {item}</li>
+//       ))}
+//     </ul>
+//   );
+// };
+
 const App = () => {
-  const normalFunction = () => {
-    console.log("hello1");
+  const callback = () => {
+    console.log("hello");
   };
-  const ref = useLongPressToAccelarate(normalFunction);
-  return (
-    <>
-      <button ref={ref} type="button">
-        Click me
-      </button>
-    </>
-  );
+
+  useReactiveIdle(callback, [1000, 500, 250, 12]);
+
+  return <div>App</div>;
 };
 
 export default App;
