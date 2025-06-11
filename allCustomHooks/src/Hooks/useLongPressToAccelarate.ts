@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
-const useLongPressToAccelarate = (
+const useLongPressToAccelarate = <T extends HTMLButtonElement>(
   callbackFunction: (...args: unknown[]) => unknown
 ) => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<T>(null);
   const counter = useRef(1);
   const delay = useRef(1000);
 
@@ -39,7 +39,7 @@ const useLongPressToAccelarate = (
     };
   }, []);
 
-  return ref as React.RefObject<HTMLButtonElement>;
+  return ref;
 };
 
 export default useLongPressToAccelarate;
