@@ -1,4 +1,4 @@
-import useReactiveIdle from "./Hooks/useReactiveIdle";
+import usePredictiveInput from "./Hooks/usePredictiveInput";
 
 // const App = () => {
 //   const [count, setCount] = useState<number>(0);
@@ -124,14 +124,68 @@ import useReactiveIdle from "./Hooks/useReactiveIdle";
 //   );
 // };
 
+// const App = () => {
+//   const callback = () => {
+//     console.log("hello");
+//   };
+
+//   useReactiveIdle(callback, [1000, 500, 250, 12]);
+
+//   return <div>App</div>;
+// };
+
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const isFirst = useFirstRender();
+
+//   useEffect(() => {
+//     if (isFirst) console.log("firstttt");
+//     else console.log("not firstttt");
+//   }, [count]);
+//   return (
+//     <div>
+//       <p>{count}</p>
+//       <button onClick={() => setCount(count + 1)}>Increment</button>
+//     </div>
+//   );
+// };
+
+// const App = () => {
+//   const flag = useRef(true);
+//   useLoopUntil({
+//     interval: 1000,
+//     maxTime: 10000,
+//     condition: () => flag.current,
+//     onComplete: () => console.log("iteration"),
+//   });
+//   return (
+//     <div>
+//       <button onClick={() => (flag.current = false)}>Click Me</button>
+//     </div>
+//   );
+// };
+
+const previousInputs = [
+  "apple",
+  "pineapple",
+  "lichi",
+  "mango",
+  "banana",
+  "orange",
+];
 const App = () => {
-  const callback = () => {
-    console.log("hello");
-  };
-
-  useReactiveIdle(callback, [1000, 500, 250, 12]);
-
-  return <div>App</div>;
+  const { suggestions, updateInput } = usePredictiveInput(previousInputs);
+  return (
+    <div>
+      <input
+        type="text"
+        onChange={(event) => updateInput(event.target.value)}
+      />
+      {suggestions.map((suggestion, index) => (
+        <p key={index}>{suggestion}</p>
+      ))}
+    </div>
+  );
 };
 
 export default App;
