@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useShortCut = ({
+export const useShortCut = ({
   ctrl,
   shift,
   key,
@@ -15,6 +15,7 @@ const useShortCut = ({
   let shiftPressed: boolean = false;
 
   const handleKeyPress = (event: KeyboardEvent) => {
+    event.preventDefault();
     if (event.key === "Control") {
       ctrlPressed = true;
     } else if (event.key === "Shift") {
@@ -27,6 +28,7 @@ const useShortCut = ({
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
+    console.log(event.key);
     if (event.key === "Ctrl") {
       ctrlPressed = false;
     } else if (event.key === "Shift") {
@@ -44,4 +46,40 @@ const useShortCut = ({
   }, []);
 };
 
-export default useShortCut;
+// export default useShortCut;
+
+//variant
+
+const useShortCutVariant = ({
+  ctrl,
+  shift,
+  key,
+  callback,
+}: {
+  ctrl: boolean;
+  shift: boolean;
+  key: string;
+  callback: () => void;
+}) => {
+  const handleKeyPress = (event: KeyboardEvent) => {
+    event.preventDefault();
+    console.log(event.key);
+    if (
+      event.ctrlKey === ctrl &&
+      event.shiftKey === shift &&
+      event.key === key
+    ) {
+      callback();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
+};
+
+export default useShortCutVariant;
